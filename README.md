@@ -1,19 +1,6 @@
 ## Welcome to Mechanics, Materials & Manufacturing Lab
 
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
+# Coninuous Fibers Project
 [Laminated Plate](https://github.com/m3lab/m3lab.github.io/blob/master/LamPlate.html) and ![Image](src)
 ```
