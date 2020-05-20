@@ -15,5 +15,5 @@ Syntax highlighted code block
 
 **Bold** and _Italic_ and `Code` text
 
-[Laminated Plate](LamPlate.html) and ![Image](src)
+[Laminated Plate](https://github.com/m3lab/m3lab.github.io/blob/master/LamPlate.html) and ![Image](src)
 ```
