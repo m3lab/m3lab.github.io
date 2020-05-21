@@ -102,7 +102,7 @@ imgReader.setUrl(`./${imgFileName}`).then(() =>
     //imgReader.parseAsArrayBuffer(fileReader.result);
     const imgdata = imgReader.getOutputData(0);
     const bnds = imgdata.getBounds();
-    imgdata.setOrigin(-0.5*(bnds[1]+bnds[0]), -0.5*(bnds[3]+bnds[2]), -0.06); //z val hardcoded
+    imgdata.setOrigin(-0.5*(bnds[1]+bnds[0]), -0.5*(bnds[3]+bnds[2]), 0.); //z val hardcoded
     const mapper = vtkVolumeMapper.newInstance();
     const actor = vtkVolume.newInstance();
 
