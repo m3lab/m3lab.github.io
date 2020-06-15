@@ -5,7 +5,6 @@ import vtkFullScreenRenderWindow from 'vtk.js/Sources/Rendering/Misc/FullScreenR
 import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
 import vtkVolume from 'vtk.js/Sources/Rendering/Core/Volume';
 import vtkVolumeMapper from 'vtk.js/Sources/Rendering/Core/VolumeMapper';
-import vtkPolyDataReader from 'vtk.js/Sources/IO/Legacy/PolyDataReader';
 import vtkXMLPolyDataReader from 'vtk.js/Sources/IO/XML/XMLPolyDataReader';
 //import vtkXMLImageDataReader from 'vtk.js/Sources/IO/XML/XMLImageDataReader';
 //import vtkHttpDataSetReader from 'vtk.js/Sources/IO/Core/HttpDataSetReader';
@@ -19,7 +18,7 @@ const numFiles = 5;
 const fileNames = ['cylinder.vtp']; // vtk would not open!
 for (let i = 1; i < numFiles; i++)
 {
-    fileNames.push('cylinder' + i.toString() + '.vtk');
+    fileNames.push('cylinder' + i.toString() + '.vtp');
     //console.log(fileNames[i]);
 }
 
@@ -44,32 +43,10 @@ const camera = renderer.getActiveCamera();
 //
 //const polydatas = [];
 var pdActors = new Array(numFiles + 1);
-//HACK - vtk for some reason is not working
-const reader = vtkXMLPolyDataReader.newInstance();
-reader.setUrl(`./${fileNames[0]}`).then(() => 
-{
-    const polydata = reader.getOutputData(0);
-    const mapper = vtkMapper.newInstance();
-    const actor = vtkActor.newInstance();
-
-    actor.setMapper(mapper);
-    mapper.setInputData(polydata);
-
-    renderer.addActor(actor);
-    //polydatas.push(polydata);
-    //pdActors.push(actor);
-    pdActors[0] = actor;
-    actor.getProperty().setOpacity(0.2);
-    actor.getProperty().setColor(.4, .4, .4);
-    //console.log(actor.getBounds())
-    resetCamera(); // Has to be called for each file!
-    render();
-});
-//HACK
 //for (let fileName of fileNames)
-for (let i = 1; i < numFiles; i++)
+for (let i = 0; i < numFiles; i++)
 {
-    const reader = vtkPolyDataReader.newInstance();
+    const reader = vtkXMLPolyDataReader.newInstance();
     reader.setUrl(`./${fileNames[i]}`).then(() => 
     {
         const polydata = reader.getOutputData(0);
@@ -83,7 +60,15 @@ for (let i = 1; i < numFiles; i++)
         //polydatas.push(polydata);
         //pdActors.push(actor);
         pdActors[i] = actor;
-        actor.getProperty().setColor(.6, .1, .2);
+        if (i==0)
+        {
+            actor.getProperty().setOpacity(0.2);
+            actor.getProperty().setColor(.4, .4, .4);
+        }
+        else
+        {
+        	actor.getProperty().setColor(.6, .1, .2);
+        }
         //console.log(actor.getBounds())
         resetCamera(); // Has to be called for each file!
         render();
